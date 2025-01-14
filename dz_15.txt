@@ -1,0 +1,26 @@
+import random
+
+#Введення даних від користувача,запитуємо скільки чисел,яке мінімальне і максимальне
+count = int(input("Введіть кількість потрібних чисел: "))
+minimum = int(input("Введіть мінімальне число: "))
+maximum = int(input("Введіть максимальне число: "))
+
+#Генерація випадкового списку
+list_for_sort = [random.randint(minimum, maximum) for _ in range(count)]
+
+print("Початковий список:", list_for_sort)
+
+#Сортування методом Шелла
+gap = len(list_for_sort) // 2 # визначаємо початковий розрив
+while gap > 0:
+    for i in range(gap, len(list_for_sort)):
+        temp = list_for_sort[i] # зберігаємо поточне значення
+        j = i
+        while j >= gap and list_for_sort[j - gap] > temp: #переставляємо елементи
+            list_for_sort[j] = list_for_sort[j - gap]
+            j -= gap
+        list_for_sort[j] = temp
+    gap //= 2 # зменшуємо розрив
+
+#Виведення
+print("Відсортований список:", list_for_sort)
